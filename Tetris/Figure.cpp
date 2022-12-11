@@ -42,19 +42,19 @@ void Figure::right()
 		iter->x++;
 	}
 }
-bool Figure::checkFall(String* tileDisplay)
+bool Figure::checkFall(vector<String>* tileDisplay)
 {
 	for (auto iter = tiles.begin(); iter != tiles.end(); iter++)
 	{
-		if (iter->y == 14 || tileDisplay[(iter->y)+1][iter->x] != '0')
+		if (iter->y == 14)// || (*tileDisplay)[(iter->y)+1][iter->x] != '0')
 			return true;
 	}
 	return false;
 }
-void Figure::setFigure(String* tileDisplay)
+void Figure::setFigure(vector<String>* tileDisplay)
 {
 	for (auto iter = tiles.begin(); iter != tiles.end(); iter++)
 	{
-		tileDisplay[iter->y][iter->x] = color;
+		(*tileDisplay)[iter->y][iter->x] = color;
 	}
 }

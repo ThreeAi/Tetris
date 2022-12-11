@@ -30,19 +30,21 @@ void Display::draw(RenderWindow& window)
 			window.draw(spriteDisplay);
 		}
 }
-//bool Display::checkLowerLine()
-//{
-//	for (int i = 0; i < WIGTH_DISPLAY; i++)
-//	{
-//		if (tileDisplay[HEIGHT_DISPLAY - 1][i] == '0')
-//			return true;
-//	}
-//	return false;
-//}
-//void Display::clearLowerLine()
-//{
-//	for (int i = HEIGHT_DISPLAY - 1 ; i > 1; i++)
-//	{
-//		tileDisplay[i] = tileDisplay[i - 1];
-//	}
-//}
+bool Display::fillLowerLine()
+{
+	int num = 0;
+	for (int i = 0; i < WIGTH_DISPLAY; i++)
+	{
+		if (tileDisplay[HEIGHT_DISPLAY - 1][i] == '0')
+			num++;
+	}
+	if (num == 0)
+		return true;
+	else
+		return false;
+}
+void Display::clearLowerLine()
+{
+	tileDisplay.pop_back();
+	tileDisplay.insert(tileDisplay.begin(), "0000000000");
+}

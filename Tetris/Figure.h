@@ -24,8 +24,8 @@ public:
 	void left();
 	void right();
 	void down();
-	bool checkFall(String* tileDisplay);
-	void setFigure(String* tileDisplay);
+	bool checkFall(vector<String>* tileDisplay);
+	void setFigure(vector<String>* tileDisplay);
 };
 class FirstFigure : public Figure
 {

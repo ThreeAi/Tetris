@@ -52,10 +52,10 @@ int main()
 			f1gure = new FirstFigure();
 			f1gure->initialization();
 		}
-		//if (d.checkLowerLine())
-		//{
-		//	d.clearLowerLine();
-		//}
+		if (d.fillLowerLine())
+		{
+			d.clearLowerLine();
+		}
 		window.clear();
 		d.draw(window);
 		f1gure->draw(window);
