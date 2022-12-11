@@ -16,12 +16,15 @@ protected:
 	vector<Point> tiles;
 	Texture textTile;
 	Sprite spriteTile;
+	char color;
 public:
-	//virtual void initialization();
+	vector<Point> getTiles() { return tiles; }
+	char getColor() { return color; }
 	void draw(RenderWindow& window);
 	void left();
 	void right();
 	void down();
+	bool fallDown();
 };
 class FirstFigure : public Figure
 {

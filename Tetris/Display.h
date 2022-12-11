@@ -25,6 +25,7 @@ private:
 	Texture textDisplay;
 	Sprite spriteDisplay;
 public:
+	String* getTileDisplay() { return tileDisplay; }
 	void initialization();
 	void draw(RenderWindow& window);
 };

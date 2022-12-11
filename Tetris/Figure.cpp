@@ -4,7 +4,7 @@
 FirstFigure::FirstFigure()
 {
 	tiles = { {0, 0}, {1, 0}, {2, 0}, {3, 0} };
-
+	color = '2';
 }
 void FirstFigure::initialization()
 {
@@ -40,4 +40,13 @@ void Figure::right()
 	{
 		iter->x++;
 	}
+}
+bool Figure::fallDown()
+{
+	for (auto iter = tiles.begin(); iter != tiles.end(); iter++)
+	{
+		if (iter->y == 14)
+			return true;
+	}
+	return false;
 }
