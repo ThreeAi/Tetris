@@ -24,7 +24,8 @@ public:
 	void left();
 	void right();
 	void down();
-	bool fallDown();
+	bool checkFall(String* tileDisplay);
+	void setFigure(String* tileDisplay);
 };
 class FirstFigure : public Figure
 {

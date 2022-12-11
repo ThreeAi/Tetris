@@ -3,7 +3,8 @@
 
 FirstFigure::FirstFigure()
 {
-	tiles = { {0, 0}, {1, 0}, {2, 0}, {3, 0} };
+	tiles = { {0, 0}, {1, 0} , { 2, 0 }, { 3, 0 }
+};
 	color = '2';
 }
 void FirstFigure::initialization()
@@ -41,12 +42,19 @@ void Figure::right()
 		iter->x++;
 	}
 }
-bool Figure::fallDown()
+bool Figure::checkFall(String* tileDisplay)
 {
 	for (auto iter = tiles.begin(); iter != tiles.end(); iter++)
 	{
-		if (iter->y == 14)
+		if (iter->y == 14 || tileDisplay[(iter->y)+1][iter->x] != '0')
 			return true;
 	}
 	return false;
+}
+void Figure::setFigure(String* tileDisplay)
+{
+	for (auto iter = tiles.begin(); iter != tiles.end(); iter++)
+	{
+		tileDisplay[iter->y][iter->x] = color;
+	}
 }

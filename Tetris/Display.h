@@ -28,4 +28,6 @@ public:
 	String* getTileDisplay() { return tileDisplay; }
 	void initialization();
 	void draw(RenderWindow& window);
+	//bool checkLowerLine();
+	//void clearLowerLine();
 };
