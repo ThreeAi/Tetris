@@ -26,10 +26,16 @@ public:
 	void down();
 	bool checkFall(vector<String>* tileDisplay);
 	void setFigure(vector<String>* tileDisplay);
+	bool checkLeft();
+	bool checkRight();
 };
 class FirstFigure : public Figure
 {
 public:
 	FirstFigure();
-	void initialization();
+};
+class SecondFigure : public Figure
+{
+public:
+	SecondFigure();
 };

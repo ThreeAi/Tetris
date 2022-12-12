@@ -12,8 +12,8 @@ int main()
 	d.initialization();
 	float fall = 0;
 	Clock clock;
-	FirstFigure* f1gure = new FirstFigure();
-	f1gure->initialization();
+	Figure* figure = new FirstFigure();
+	bool flag = true;
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -23,7 +23,7 @@ int main()
 		cout << time << " " << fall << endl;
 		if (fall > 1500)
 		{
-			f1gure->down();
+			figure->down();
 			fall = 0;
 		}
 		Vector2i pixelPos = Mouse::getPosition(window);
@@ -34,23 +34,28 @@ int main()
 				window.close();
 			if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))))
 			{
-				f1gure->left();
+				if(figure->checkLeft())
+					figure->left();
 			}
 			if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))))
 			{
-				f1gure->right();
+				if (figure->checkRight())
+					figure->right();
 			}
 			if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))))
 			{
-				f1gure->down();
+				figure->down();
 			}
 		}
-		if (f1gure->checkFall(d.getTileDisplay()))
+		if (figure->checkFall(d.getTileDisplay()))
 		{
-			f1gure->setFigure(d.getTileDisplay());
-			delete f1gure;
-			f1gure = new FirstFigure();
-			f1gure->initialization();
+			figure->setFigure(d.getTileDisplay());
+			delete figure;
+			if (flag)
+				figure = new SecondFigure();
+			else
+				figure = new FirstFigure();
+			flag = !flag;
 		}
 		if (d.fillLowerLine())
 		{
@@ -58,7 +63,7 @@ int main()
 		}
 		window.clear();
 		d.draw(window);
-		f1gure->draw(window);
+		figure->draw(window);
 		window.display();
 	}
 	return 0;
