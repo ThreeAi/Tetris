@@ -20,7 +20,6 @@ int main()
 		clock.restart();
 		time = time / 800;
 		fall += time;
-		cout << time << " " << fall << endl;
 		if (fall > 1500)
 		{
 			figure->down();
@@ -34,33 +33,69 @@ int main()
 				window.close();
 			if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))))
 			{
-				if(figure->checkLeft())
+				if(figure->checkLeft(d.getTileDisplay()))
 					figure->left();
 			}
 			if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))))
 			{
-				if (figure->checkRight())
+				if (figure->checkRight(d.getTileDisplay()))
 					figure->right();
 			}
 			if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))))
 			{
 				figure->down();
 			}
+			if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))))
+			{
+				figure->up();
+			}
 		}
 		if (figure->checkFall(d.getTileDisplay()))
 		{
 			figure->setFigure(d.getTileDisplay());
 			delete figure;
-			if (flag)
-				figure = new SecondFigure();
-			else
+			int r = rand() % 7 + 1;
+			switch (r)
+			{
+			case 1:
+			{
 				figure = new FirstFigure();
-			flag = !flag;
+				break;
+			}
+			case 2:
+			{
+				figure = new SecondFigure();
+				break;
+			}
+			case 3:
+			{
+				figure = new ThirdFigure();
+				break;
+			}
+			case 4:
+			{
+				figure = new FourthFigure();
+				break;
+			}
+			case 5:
+			{
+				figure = new FifthFigure();
+				break;
+			}
+			case 6:
+			{
+				figure = new SixthFigure();
+				break;
+			}
+			case 7:
+			{
+				figure = new SeventhFigure();
+				break;
+			}
+			}
 		}
-		if (d.fillLowerLine())
-		{
-			d.clearLowerLine();
-		}
+		vector<int> filledLines = d.filledLines();
+		d.clearLines(filledLines);
 		window.clear();
 		d.draw(window);
 		figure->draw(window);

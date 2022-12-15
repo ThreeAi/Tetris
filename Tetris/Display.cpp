@@ -12,39 +12,83 @@ void Display::draw(RenderWindow& window)
 	for (int i = 0; i < HEIGHT_DISPLAY; i++)
 		for (int j = 0; j < WIGTH_DISPLAY; j++)
 		{
-			if (tileDisplay[i][j] == '0')
+			char color = tileDisplay[i][j];
+			switch (color)
+			{
+			case '0':
 			{
 				spriteDisplay.setTextureRect(IntRect(0, 0, LENGTH_TILE, LENGTH_TILE));
 				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
 			}
-			if (tileDisplay[i][j] == '1')
+			case '1':
 			{
-				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 1, 0, LENGTH_TILE, LENGTH_TILE));
 				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
 			}
-			if (tileDisplay[i][j] == '2')
+			case '2':
 			{
 				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 2, 0, LENGTH_TILE, LENGTH_TILE));
 				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
+			case '3':
+			{
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 3, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
+			case '4':
+			{
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 4, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
+			case '5':
+			{
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 5, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
+			case '6':
+			{
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 6, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
+			case '7':
+			{
+				spriteDisplay.setTextureRect(IntRect(LENGTH_TILE * 7, 0, LENGTH_TILE, LENGTH_TILE));
+				spriteDisplay.setPosition(LENGTH_TILE * j, LENGTH_TILE * i);
+				break;
+			}
 			}
 			window.draw(spriteDisplay);
 		}
 }
-bool Display::fillLowerLine()
+vector<int> Display::filledLines()
 {
-	int num = 0;
-	for (int i = 0; i < WIGTH_DISPLAY; i++)
+	vector<int> temp;
+	for (int j = 0; j < HEIGHT_DISPLAY; j++)
 	{
-		if (tileDisplay[HEIGHT_DISPLAY - 1][i] == '0')
-			num++;
+		int num = 0;
+		for (int i = 0; i < WIGTH_DISPLAY; i++)
+		{
+			if (tileDisplay[j][i] == '0')
+				num++;
+		}
+		if (num == 0)
+			temp.push_back(j);
 	}
-	if (num == 0)
-		return true;
-	else
-		return false;
+	return temp;
 }
-void Display::clearLowerLine()
+void Display::clearLines(vector<int> temp)
 {
-	tileDisplay.pop_back();
-	tileDisplay.insert(tileDisplay.begin(), "0000000000");
+	for (auto iter : temp)
+	{
+		tileDisplay.erase(tileDisplay.begin()+iter);
+		tileDisplay.insert(tileDisplay.begin(), "0000000000");
+
+	}
 }

@@ -32,6 +32,6 @@ public:
 	vector<String>* getTileDisplay() { return &tileDisplay; }
 	void initialization();
 	void draw(RenderWindow& window);
-	bool fillLowerLine();
-	void clearLowerLine();
+	vector<int> filledLines();
+	void clearLines(vector<int> temp);
 };
