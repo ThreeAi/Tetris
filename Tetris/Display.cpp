@@ -92,3 +92,12 @@ void Display::clearLines(vector<int> temp)
 
 	}
 }
+bool Display::checkEndGame()
+{
+	for (int i = 3; i <= 6; i++)
+	{
+		if (tileDisplay[0][i] != '0')
+			return false;
+	}
+	return true;
+}

@@ -28,6 +28,7 @@ public:
 	bool checkRight(vector<String>* tileDisplay);
 	void down();
 	void up();
+	bool checkUp();
 	bool checkFall(vector<String>* tileDisplay);
 	void setFigure(vector<String>* tileDisplay);
 };

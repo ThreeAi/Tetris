@@ -153,6 +153,15 @@ void Figure::right()
 			iter->x++;
 		}
 }
+bool Figure::checkUp()
+{
+	for (auto iter = tiles[(position + 1) % 4].begin(); iter != tiles[(position + 1) % 4].end(); iter++)
+	{
+		if (iter->y < 0)
+			return false;
+	}
+	return true;
+}
 void Figure::up()
 {
 	position++;

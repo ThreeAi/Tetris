@@ -29,6 +29,7 @@ private:
 	Texture textDisplay;
 	Sprite spriteDisplay;
 public:
+	bool checkEndGame();
 	vector<String>* getTileDisplay() { return &tileDisplay; }
 	void initialization();
 	void draw(RenderWindow& window);

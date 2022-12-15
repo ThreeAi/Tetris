@@ -7,10 +7,16 @@ using namespace std;
 
 int main()
 {
+	Font font;
+	font.loadFromFile("GULAG Pavljenko.otf");
+	Text text("", font, 70);
+	text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	RenderWindow window(VideoMode(LENGTH_TILE * WIGTH_DISPLAY, LENGTH_TILE * HEIGHT_DISPLAY), "Tetris");
+	text.setPosition(window.getView().getCenter().x - 200, window.getView().getCenter().y - 75);
 	Display d = Display();
 	d.initialization();
 	float fall = 0;
+	int score = 0;
 	Clock clock;
 	Figure* figure = new FirstFigure();
 	bool flag = true;
@@ -27,79 +33,93 @@ int main()
 		}
 		Vector2i pixelPos = Mouse::getPosition(window);
 		Event event;
-		while (window.pollEvent(event))
+		if (d.checkEndGame())
 		{
-			if (event.type == Event::Closed)
-				window.close();
-			if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))))
+			while (window.pollEvent(event))
 			{
-				if(figure->checkLeft(d.getTileDisplay()))
-					figure->left();
+				if (event.type == Event::Closed)
+					window.close();
+				if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))))
+				{
+					if (figure->checkLeft(d.getTileDisplay()))
+						figure->left();
+				}
+				if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))))
+				{
+					if (figure->checkRight(d.getTileDisplay()))
+						figure->right();
+				}
+				if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))))
+				{
+					figure->down();
+				}
+				if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))))
+				{
+					if (figure->checkUp())
+						figure->up();
+				}
 			}
-			if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))))
+			if (figure->checkFall(d.getTileDisplay()))
 			{
-				if (figure->checkRight(d.getTileDisplay()))
-					figure->right();
+				figure->setFigure(d.getTileDisplay());
+				delete figure;
+				int r = rand() % 7 + 1;
+				switch (r)
+				{
+				case 1:
+				{
+					figure = new FirstFigure();
+					break;
+				}
+				case 2:
+				{
+					figure = new SecondFigure();
+					break;
+				}
+				case 3:
+				{
+					figure = new ThirdFigure();
+					break;
+				}
+				case 4:
+				{
+					figure = new FourthFigure();
+					break;
+				}
+				case 5:
+				{
+					figure = new FifthFigure();
+					break;
+				}
+				case 6:
+				{
+					figure = new SixthFigure();
+					break;
+				}
+				case 7:
+				{
+					figure = new SeventhFigure();
+					break;
+				}
+				}
 			}
-			if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))))
-			{
-				figure->down();
-			}
-			if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))))
-			{
-				figure->up();
-			}
+			vector<int> filledLines = d.filledLines();
+			score += filledLines.size();
+			d.clearLines(filledLines);
+			window.clear();
+			d.draw(window);
+			figure->draw(window);
+			window.display();
 		}
-		if (figure->checkFall(d.getTileDisplay()))
+		else
 		{
-			figure->setFigure(d.getTileDisplay());
-			delete figure;
-			int r = rand() % 7 + 1;
-			switch (r)
-			{
-			case 1:
-			{
-				figure = new FirstFigure();
-				break;
-			}
-			case 2:
-			{
-				figure = new SecondFigure();
-				break;
-			}
-			case 3:
-			{
-				figure = new ThirdFigure();
-				break;
-			}
-			case 4:
-			{
-				figure = new FourthFigure();
-				break;
-			}
-			case 5:
-			{
-				figure = new FifthFigure();
-				break;
-			}
-			case 6:
-			{
-				figure = new SixthFigure();
-				break;
-			}
-			case 7:
-			{
-				figure = new SeventhFigure();
-				break;
-			}
-			}
+			window.clear();
+			d.draw(window);
+			string str = to_string(score*100);
+			text.setString("game over \n score : " + str);
+			window.draw(text);
+			window.display();
 		}
-		vector<int> filledLines = d.filledLines();
-		d.clearLines(filledLines);
-		window.clear();
-		d.draw(window);
-		figure->draw(window);
-		window.display();
 	}
 	return 0;
 }
