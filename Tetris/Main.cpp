@@ -28,7 +28,6 @@ int main()
 			figure->down();
 			clock.restart();
 		}
-		Vector2i pixelPos = Mouse::getPosition(window);
 		Event event;
 		if (d.checkEndGame())
 		{
