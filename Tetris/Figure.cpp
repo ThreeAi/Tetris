@@ -153,11 +153,13 @@ void Figure::right()
 			iter->x++;
 		}
 }
-bool Figure::checkUp()
+bool Figure::checkUp(vector<String>* tileDisplay)
 {
 	for (auto iter = tiles[(position + 1) % 4].begin(); iter != tiles[(position + 1) % 4].end(); iter++)
 	{
-		if (iter->y < 0)
+		if (iter->y < 0 || iter->x < 0 || iter->x > HEIGHT_DISPLAY - 1)
+			return false;
+		if ((*tileDisplay)[iter->y][(iter->x)] != '0')
 			return false;
 	}
 	return true;

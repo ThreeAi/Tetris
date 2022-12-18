@@ -23,13 +23,10 @@ int main()
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
-		clock.restart();
-		time = time / 800;
-		fall += time;
-		if (fall > 1500)
+		if (time / 1000000 > 1)
 		{
 			figure->down();
-			fall = 0;
+			clock.restart();
 		}
 		Vector2i pixelPos = Mouse::getPosition(window);
 		Event event;
@@ -55,7 +52,7 @@ int main()
 				}
 				if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))))
 				{
-					if (figure->checkUp())
+					if (figure->checkUp(d.getTileDisplay()))
 						figure->up();
 				}
 			}
