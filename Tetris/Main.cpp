@@ -15,11 +15,9 @@ int main()
 	text.setPosition(window.getView().getCenter().x - 200, window.getView().getCenter().y - 75);
 	Display d = Display();
 	d.initialization();
-	float fall = 0;
 	int score = 0;
 	Clock clock;
 	Figure* figure = new FirstFigure();
-	bool flag = true;
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -109,6 +107,11 @@ int main()
 		}
 		else
 		{
+			while (window.pollEvent(event))
+			{
+				if (event.type == Event::Closed)
+					window.close();
+			}
 			window.clear();
 			d.draw(window);
 			string str = to_string(score*100);
